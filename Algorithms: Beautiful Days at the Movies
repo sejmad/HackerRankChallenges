@@ -1,0 +1,73 @@
+#include <iostream>
+#include <exception>
+using namespace std;
+
+int reverse(int number)
+{
+    int counter = 0;
+    int copy = number;
+    while (copy > 0){
+        copy = copy / 10;
+        counter++;
+    } 
+
+    int reversedNumber = 0; 
+
+    while (counter > 0) {
+        reversedNumber = reversedNumber * 10 + (number % 10);
+        number /= 10;
+        counter--;
+    } 
+
+    return reversedNumber;
+}
+
+/*
+ * Complete the 'beautifulDays' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts following parameters:
+ *  1. INTEGER i
+ *  2. INTEGER j
+ *  3. INTEGER k
+ */
+
+int beautifulDays(int i, int j, int k) {
+
+    if (i>j || i<1 || k<1)
+    {
+        throw exception("Input is invalid.");
+    }
+
+   int counter = 0;
+   
+   for (int q = i; q <= j; q++)
+   {
+       if ((q - reverse(q)) % k == 0)
+       {
+           counter++;
+       }
+   }
+   return counter;
+    
+}
+
+int main()
+{
+ 
+    int i, j, k;
+    cout << "Enter the range of numbered days (starting from number 'i' and ending at number 'j'" << endl;
+    cin >> i >> j;
+    cout << "Enter the divisor 'k'" << endl;
+    cin >> k;
+    try
+    {
+        cout << "The number of beautiful days: " << beautifulDays(i, j, k) << endl;
+    }
+    catch (exception& error)
+    {
+        cout << error.what() << endl;
+    }
+    
+    return 0;
+}
